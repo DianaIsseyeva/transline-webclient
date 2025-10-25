@@ -1,0 +1,74 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Geologica';
+  src: url('/fonts/Geologica-Variable.ttf') format('truetype');
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-primary: #05c0e6;
+  --color-disabled: #c1eff9;
+  --color-error: #e62b05;
+
+  --color-grey: #d9d9d9;
+  --color-grey-light: #f4f8f9;
+  --color-grey-charcoal: #252526;
+  --color-grey-charcoal-70: #454545;
+  --color-grey-charcoal-40: #808080;
+
+  --text-50: 50px;
+  --text-32: 32px;
+  --text-25: 25px;
+  --text-19-83: 19.83px;
+  --text-16: 16px;
+  --text-14: 14px;
+  --text-12: 12px;
+
+  --leading-100: 100%;
+  --leading-110: 110%;
+  --leading-120: 120%;
+  --leading-140: 140%;
+
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
+
+  --font-sans: Geologica, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 10px 32px;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+}

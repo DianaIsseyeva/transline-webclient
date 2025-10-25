@@ -1,11 +1,8 @@
-import './App.css';
+import { Outlet } from 'react-router-dom';
+import '@/styles/App.css';
 
 function App() {
-  return (
-    <>
-      <div>TRANSLINE</div>
-    </>
-  );
+  return <Outlet />;
 }
 
 export default App;
