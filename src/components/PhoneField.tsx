@@ -18,6 +18,7 @@ type PhoneFieldProps = {
   ) => void;
   isSubmitted: boolean;
   error?: string;
+  onMetaChange?: (m: { iso2: string; dialCode: string }) => void;
 };
 
 const phoneInputStyles = {
@@ -32,7 +33,7 @@ const phoneInputStyles = {
   },
 };
 
-const PhoneField = ({ register, setValue, isSubmitted, error }: PhoneFieldProps) => {
+const PhoneField = ({ register, setValue, isSubmitted, error, onMetaChange }: PhoneFieldProps) => {
   const [national, setNational] = useState('');
 
   const { inputRef, country, setCountry } = usePhoneInput({
@@ -43,11 +44,15 @@ const PhoneField = ({ register, setValue, isSubmitted, error }: PhoneFieldProps)
   useEffect(() => {
     const validateByCountry = makeCountryValidator(() => country.iso2);
     register('phone', { validate: validateByCountry });
-  }, [country.iso2]);
+  }, [register, country.iso2]);
 
   useEffect(() => {
     setValue('phone', national, { shouldValidate: isSubmitted });
-  }, [country.dialCode]);
+  }, [setValue, national, isSubmitted, country.dialCode]);
+
+  useEffect(() => {
+    onMetaChange?.({ iso2: country.iso2, dialCode: country.dialCode });
+  }, [onMetaChange, country.iso2, country.dialCode]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const n = normalizeToNational(e.target.value, country.dialCode, country.iso2);

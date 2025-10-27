@@ -54,8 +54,6 @@ body {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 10px 32px;
   font-weight: 400;
   font-family: inherit;
   cursor: pointer;

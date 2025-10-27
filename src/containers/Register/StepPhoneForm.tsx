@@ -1,9 +1,10 @@
 import PhoneField from '@/components/PhoneField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type FormValues = { phone: string; consent: boolean };
 type Props = { onDone: (payload: { phoneNational: string }) => void };
+type Meta = { iso2: string; dialCode: string };
 
 const StepPhoneForm = ({ onDone }: Props) => {
   const {
@@ -17,14 +18,26 @@ const StepPhoneForm = ({ onDone }: Props) => {
     defaultValues: { phone: '', consent: false },
   });
 
+  useEffect(() => {
+    register('consent', { validate: v => v || 'Нужно согласие' });
+  }, [register]);
+
   const [consent, setConsent] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [meta, setMeta] = useState<Meta>({ iso2: 'kz', dialCode: '7' });
 
   const onSubmit = (data: FormValues) => {
+    const phoneNational = data.phone.replace(/\D/g, '');
+    try {
+      localStorage.setItem('register.phone', phoneNational);
+      localStorage.setItem('register.iso2', meta.iso2);
+      localStorage.setItem('register.dial', meta.dialCode);
+      localStorage.setItem('register.step', 'role');
+    } catch {}
     setIsSending(true);
     setTimeout(() => {
       setIsSending(false);
-      onDone({ phoneNational: data.phone.replace(/\D/g, '') });
+      onDone({ phoneNational });
     }, 1200);
   };
 
@@ -43,6 +56,9 @@ const StepPhoneForm = ({ onDone }: Props) => {
             setValue={setValue as any}
             isSubmitted={isSubmitted}
             error={errors.phone && String(errors.phone.message)}
+            onMetaChange={m =>
+              setMeta(prev => (prev.iso2 === m.iso2 && prev.dialCode === m.dialCode ? prev : m))
+            }
           />
 
           <label
@@ -82,7 +98,7 @@ const StepPhoneForm = ({ onDone }: Props) => {
             type='submit'
             disabled={isSending}
             aria-disabled={isSending}
-            className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full mt-8 disabled:cursor-not-allowed'
+            className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8'
           >
             {isSending ? 'Отправляем…' : 'войти'}
           </button>

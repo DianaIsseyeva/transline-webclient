@@ -15,7 +15,7 @@ const StepRole = ({ onContinue }: Props) => {
 
         <div className='flex flex-col items-center-safe gap-4 mt-8'>
           <label
-            className={`border border-gray-300 rounded-xl p-4 cursor-pointer transition duration-150 max-w-[343px] ${
+            className={`border border-gray-300 rounded-xl cursor-pointer transition duration-150 max-w-[343px] p-4  ${
               role === 'customer' ? 'ring-2 ring-blue-500' : ''
             }`}
           >
@@ -39,7 +39,7 @@ const StepRole = ({ onContinue }: Props) => {
           </label>
 
           <label
-            className={`border border-gray-300 rounded-xl p-4 cursor-pointer transition duration-150 max-w-[343px] ${
+            className={`border border-gray-300 rounded-xl cursor-pointer transition duration-150 max-w-[343px] p-4 ${
               role === 'carrier' ? 'ring-2 ring-blue-500' : ''
             }`}
           >
@@ -68,7 +68,7 @@ const StepRole = ({ onContinue }: Props) => {
           disabled={!role}
           aria-disabled={!role}
           onClick={() => role && onContinue(role)}
-          className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full mt-8 disabled:cursor-not-allowed'
+          className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8'
         >
           Продолжить
         </button>
