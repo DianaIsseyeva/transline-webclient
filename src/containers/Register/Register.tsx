@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import StepQuestionary from './Questionnary';
 import StepOTP from './StepOTP';
 import StepPhoneForm from './StepPhoneForm';
 import StepRole from './StepRole';
@@ -69,7 +70,9 @@ export default function Register() {
             )}
 
             {step === 'questionnary' && (
-              <div className='flex items-center justify-center h-full'>Анкета</div>
+              <div className='flex items-center justify-center h-full'>
+                <StepQuestionary />
+              </div>
             )}
           </div>
           <div className='bg-primary h-1'></div>

@@ -4,7 +4,12 @@ type Props = { onContinue: (role: 'customer' | 'carrier') => void };
 
 const StepRole = ({ onContinue }: Props) => {
   const [role, setRole] = useState<'customer' | 'carrier' | null>(null);
-
+  const chooseRole = (value: 'customer' | 'carrier') => {
+    setRole(value);
+    try {
+      localStorage.setItem('register.role', value);
+    } catch {}
+  };
   return (
     <div className='flex flex-col h-full justify-between'>
       <>
@@ -15,16 +20,16 @@ const StepRole = ({ onContinue }: Props) => {
 
         <div className='flex flex-col items-center-safe gap-4 mt-8'>
           <label
-            className={`border border-gray-300 rounded-xl cursor-pointer transition duration-150 max-w-[343px] p-4  ${
-              role === 'customer' ? 'ring-2 ring-blue-500' : ''
-            }`}
+            className={`border border-gray-300 rounded-xl cursor-pointer transition
+                        duration-150 max-w-[343px] p-4
+                        ${role === 'customer' ? 'ring-2 ring-blue-500' : ''}`}
           >
             <input
               type='radio'
               name='role'
               className='hidden'
               checked={role === 'customer'}
-              onChange={() => setRole('customer')}
+              onChange={() => chooseRole('customer')}
             />
             <div className='flex'>
               <div>
@@ -39,16 +44,16 @@ const StepRole = ({ onContinue }: Props) => {
           </label>
 
           <label
-            className={`border border-gray-300 rounded-xl cursor-pointer transition duration-150 max-w-[343px] p-4 ${
-              role === 'carrier' ? 'ring-2 ring-blue-500' : ''
-            }`}
+            className={`border border-gray-300 rounded-xl cursor-pointer
+                        transition duration-150 max-w-[343px] p-4
+                        ${role === 'carrier' ? 'ring-2 ring-blue-500' : ''}`}
           >
             <input
               type='radio'
               name='role'
               className='hidden'
               checked={role === 'carrier'}
-              onChange={() => setRole('carrier')}
+              onChange={() => chooseRole('carrier')}
             />
             <div className='flex'>
               <div>
@@ -68,7 +73,8 @@ const StepRole = ({ onContinue }: Props) => {
           disabled={!role}
           aria-disabled={!role}
           onClick={() => role && onContinue(role)}
-          className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8'
+          className={`disabled:bg-disabled bg-primary text-white text-16
+                      leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8`}
         >
           Продолжить
         </button>

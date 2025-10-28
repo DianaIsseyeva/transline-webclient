@@ -84,7 +84,10 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
         <h3 className='text-25 font-semibold leading-120 text-grey-charcoal mb-5'>
           Введите код из SMS
         </h3>
-        <p className='text-16 text-grey-charcoal-70 leading-120 font-light border-b border-dashed border-b-grey mb-5 pb-5'>
+        <p
+          className={`text-16 text-grey-charcoal-70 leading-120 font-light
+                       border-b border-dashed border-b-grey mb-5 pb-5`}
+        >
           Проверочный код был отправлен на номер: <br />{' '}
           <span className='pt-2 block'>{formatPhone(iso2, dial, phoneNational)}</span>
         </p>
@@ -150,14 +153,18 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
 
         <div className='text-center'>
           {counter > 0 ? (
-            <p className='border rounded-lg border-grey text-grey-charcoal-40 text-16 leading-120 font-normal w-full mt-8 p-4'>
+            <p
+              className={`border rounded-lg border-grey text-grey-charcoal-40
+                           text-16 leading-120 font-normal w-full mt-8 p-4`}
+            >
               отправить повторно через 00:{String(counter).padStart(2, '0')}
             </p>
           ) : (
             <button
               type='button'
               onClick={resend}
-              className='border border-grey text-grey-charcoal-40 text-16 leading-120 font-normal w-full mt-8 p-4'
+              className={`border border-grey text-grey-charcoal-40 text-16
+                          leading-120 font-normal w-full mt-8 p-4`}
             >
               отправить повторно
             </button>

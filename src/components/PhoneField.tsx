@@ -22,11 +22,11 @@ type PhoneFieldProps = {
 };
 
 const phoneInputStyles = {
-  inputClassName:
-    '!p-3 !border-none !rounded-none !w-full focus:!ring-0 focus:!border-none !text-16 !font-light focus:!outline-none focus:!shadow-none',
+  inputClassName: `!p-3 !border-none !rounded-none !w-full focus:!ring-0 focus:!border-none
+                   !text-16 !font-light focus:!outline-none focus:!shadow-none`,
   countrySelectorStyleProps: {
-    className:
-      '!border-none !rounded-none !bg-transparent !cursor-pointer focus:!ring-0 focus:!outline-none',
+    className: `!border-none !rounded-none !bg-transparent !cursor-pointer focus:!ring-0
+       focus:!outline-none`,
     buttonClassName:
       '!h-full !py-0 !px-3 !flex !items-center !border-none focus:!ring-0 focus:!outline-none',
     dropdownClassName: '!z-50',
@@ -71,9 +71,10 @@ const PhoneField = ({ register, setValue, isSubmitted, error, onMetaChange }: Ph
   return (
     <>
       <div
-        className={`mt-8 flex p-2 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 transition duration-150 ${
-          isSubmitted && error ? 'mb-0' : 'mb-8'
-        }`}
+        className={`mt-8 flex p-2 border border-gray-300 rounded-xl
+                    focus-within:ring-2 focus-within:ring-blue-500 transition duration-150 ${
+                      isSubmitted && error ? 'mb-0' : 'mb-8'
+                    }`}
       >
         <CountrySelector
           selectedCountry={country.iso2 as CountryIso2}

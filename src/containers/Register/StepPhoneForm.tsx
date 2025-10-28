@@ -98,7 +98,8 @@ const StepPhoneForm = ({ onDone }: Props) => {
             type='submit'
             disabled={isSending}
             aria-disabled={isSending}
-            className='disabled:bg-disabled bg-primary text-white text-16 leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8'
+            className={`disabled:bg-disabled bg-primary text-white text-16
+                        leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8`}
           >
             {isSending ? 'Отправляем…' : 'войти'}
           </button>
