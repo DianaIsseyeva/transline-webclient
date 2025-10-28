@@ -95,8 +95,8 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
         {isWrong && <p style={{ color: '#E53935', marginBottom: 8 }}>Неправильный код</p>}
 
         <div
-          className='flex justify-content-between'
-          style={{ maxWidth: 360, gap: 12, paddingBottom: 16, marginBottom: 24, cursor: 'text' }}
+          className='flex justify-content-between w-full max-w-[300px] mx-auto'
+          style={{ maxWidth: 360, gap: 8, paddingBottom: 16, marginBottom: 24, cursor: 'text' }}
         >
           {Array.from({ length: OTP_LEN }).map((_, i) => (
             <div

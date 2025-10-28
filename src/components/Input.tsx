@@ -44,15 +44,15 @@ const Input: FC<InputProps> = ({
   };
 
   return (
-    <div className='mb-4 w-[440px]'>
+    <div className='mb-4 w-full md:max-w-[440px] flex-1 min-w-[300px]'>
       <input
         type={type}
         placeholder={placeholder}
         inputMode={inputMode}
         maxLength={maxLength}
-        className={`w-full p-4 rounded-xl border border-grey outline-none
-                    text-16 leading-120 font-400 text-grey-charcoal-70
-                    ${error ? 'ring-2 ring-red-400' : ''}`}
+        className={`block w-full p-4 rounded-xl border border-grey outline-none
+                text-16 leading-120 font-400 text-grey-charcoal-70
+                ${error ? 'ring-2 ring-red-400' : ''}`}
         {...field}
         onChange={handleChange}
       />

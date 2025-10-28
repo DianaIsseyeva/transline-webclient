@@ -11,9 +11,10 @@ const StepPhoneForm = ({ onDone }: Props) => {
     register,
     setValue,
     handleSubmit,
-    formState: { errors, isSubmitted },
+    watch,
+    formState: { errors, isSubmitted, isValid },
   } = useForm<FormValues>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: { phone: '', consent: false },
   });
@@ -22,9 +23,11 @@ const StepPhoneForm = ({ onDone }: Props) => {
     register('consent', { validate: v => v || 'Нужно согласие' });
   }, [register]);
 
-  const [consent, setConsent] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [meta, setMeta] = useState<Meta>({ iso2: 'kz', dialCode: '7' });
+
+  const consentChecked = watch('consent') === true;
+  const canSubmit = isValid && consentChecked && !isSending;
 
   const onSubmit = (data: FormValues) => {
     const phoneNational = data.phone.replace(/\D/g, '');
@@ -42,7 +45,7 @@ const StepPhoneForm = ({ onDone }: Props) => {
   };
 
   return (
-    <div className='flex flex-col h-full justify-between'>
+    <div className='flex flex-col lg:h-full justify-between'>
       <div>
         <h3 className='text-32 text-grey-charcoal leading-120 font-semibold  mb-2'>Регистрация</h3>
         <p className='text-16 text-grey-charcoal-70 leading-120 font-light'>
@@ -72,14 +75,13 @@ const StepPhoneForm = ({ onDone }: Props) => {
               name='consent'
               type='checkbox'
               required
-              checked={consent}
-              onChange={e => {
-                setConsent(e.target.checked);
+              checked={consentChecked}
+              onChange={e =>
                 setValue('consent', e.target.checked, {
-                  shouldValidate: isSubmitted,
+                  shouldValidate: true,
                   shouldDirty: true,
-                });
-              }}
+                })
+              }
               className='h-[18px] w-[18px] mt-0.5'
             />
             <span className='text-14 text-grey-charcoal-70 leading-120 font-light mt-2'>
@@ -96,8 +98,8 @@ const StepPhoneForm = ({ onDone }: Props) => {
 
           <button
             type='submit'
-            disabled={isSending}
-            aria-disabled={isSending}
+            disabled={!canSubmit}
+            aria-disabled={!canSubmit}
             className={`disabled:bg-disabled bg-primary text-white text-16
                         leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8`}
           >
@@ -105,8 +107,6 @@ const StepPhoneForm = ({ onDone }: Props) => {
           </button>
         </form>
       </div>
-
-      <img src='/src/assets/images/geo.svg' className='h-24 w-24 ml-auto' />
     </div>
   );
 };

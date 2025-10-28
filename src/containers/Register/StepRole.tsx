@@ -11,9 +11,11 @@ const StepRole = ({ onContinue }: Props) => {
     } catch {}
   };
   return (
-    <div className='flex flex-col h-full justify-between'>
+    <div className='flex flex-col lg:h-full justify-between'>
       <>
-        <h3 className='text-32 text-grey-charcoal leading-120 font-semibold  mb-2'>Регистрация</h3>
+        <h3 className='lg:text-32 text-25 text-grey-charcoal leading-120 font-semibold mb-2'>
+          Регистрация
+        </h3>
         <p className='text-16 text-grey-charcoal-70 leading-120 font-light'>
           Выберите, как вы хотите использовать приложение
         </p>
@@ -79,7 +81,6 @@ const StepRole = ({ onContinue }: Props) => {
           Продолжить
         </button>
       </>
-      <img src='/src/assets/images/geo.svg' className='h-[72px] w-[72px] ml-auto' />
     </div>
   );
 };
