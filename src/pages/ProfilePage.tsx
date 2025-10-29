@@ -1,5 +1,5 @@
 import { Icon } from '@/components/Icons';
-import { AppLayout, NavSection } from '@/components/layout/ProfileLayout';
+import { NavSection, ProfileLayout } from '@/components/layout/ProfileLayout';
 import { icon } from '@/icons';
 
 export default function ProfilePage() {
@@ -48,13 +48,13 @@ export default function ProfilePage() {
   ];
 
   return (
-    <AppLayout
+    <ProfileLayout
       title='TRANSLINE'
       user={{ name: 'Иван Иванов', avatarUrl: 'https://i.pravatar.cc/80' }}
       sections={sections}
       activePath='/admin/refs'
     >
       данные юзера
-    </AppLayout>
+    </ProfileLayout>
   );
 }

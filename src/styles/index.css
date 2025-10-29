@@ -34,10 +34,6 @@
   --leading-120: 120%;
   --leading-140: 140%;
 
-  --breakpoint-mobile: 320px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1280px;
-
   --font-sans: Geologica, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
