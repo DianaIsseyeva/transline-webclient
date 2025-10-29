@@ -27,24 +27,24 @@ export default function Register() {
     } catch {}
   }, [step]);
 
+  const hideLeftOnMobile = step === 'otp';
+
   return (
-    <div className='min-h-[90svh] lg:min-h-svh grid lg:grid-cols-2 sm:grid-cols-1 '>
-      {step !== 'otp' && (
-        <div className='bg-primary lg:pb-16 pb-0'>
-          <div className='lg:pt-24 lg:px-16 py-10 px-8 lg:h-full'>
-            <div className='flex flex-col h-full justify-between'>
-              <div>
-                <img src='/src/assets/images/logo.svg' className='mb-5' />
-                <p className='text-white font-semibold lg:text-50 md:text-32 text-25 leading-110'>
-                  Добро пожаловать в личный кабинет для бизнеса!
-                </p>
-              </div>
-              <Icon icon={icon.car} strokeColor='#ffffff' className='hidden lg:block' />
+    <div className='min-h-[90svh] lg:min-h-svh grid lg:grid-cols-2 sm:grid-cols-1'>
+      <div className={`${hideLeftOnMobile ? 'hidden lg:block' : ''} bg-primary lg:pb-16 pb-0`}>
+        <div className='lg:pt-24 lg:px-16 py-10 px-8 lg:h-full'>
+          <div className='flex flex-col h-full justify-between'>
+            <div>
+              <img src='/images/logo.svg' className='mb-5' />
+              <p className='text-white font-semibold lg:text-50 md:text-32 text-25 leading-110'>
+                Добро пожаловать в личный кабинет для бизнеса!
+              </p>
             </div>
+            <Icon icon={icon.car} strokeColor='#ffffff' className='hidden lg:block' />
           </div>
-          <div className='bg-white h-1 hidden lg:block'></div>
         </div>
-      )}
+        <div className='bg-white h-1 hidden lg:block'></div>
+      </div>
 
       <div className='h-full lg:pb-[60px] flex flex-col overflow-x-hidden'>
         <div className='flex-1 lg:pb-16 pb-10'>
@@ -62,7 +62,7 @@ export default function Register() {
 
             {step === 'role' && (
               <StepRole
-                onContinue={role => {
+                onContinue={() => {
                   setStep('otp');
                 }}
               />
@@ -82,22 +82,20 @@ export default function Register() {
           </div>
         </div>
 
-        {step !== 'otp' && (
-          <div className='mt-auto'>
-            <div className='flex items-baseline lg:hidden'>
-              <Icon
-                icon={icon.car}
-                width={72}
-                height={72}
-                strokeColor='#05c0e6'
-                className='lg:hidden block'
-              />
-              <img src='/src/assets/images/geo.svg' className='lg:h-24 lg:w-24 ml-auto' />
-            </div>
-            <img src='/src/assets/images/geo.svg' className='h-24 w-24 ml-auto lg:block hidden' />
-            <div className='bg-primary h-1' />
+        <div className={`mt-auto ${hideLeftOnMobile ? 'hidden lg:block' : ''}`}>
+          <div className='flex items-baseline lg:hidden'>
+            <Icon
+              icon={icon.car}
+              width={72}
+              height={72}
+              strokeColor='#05c0e6'
+              className='lg:hidden block'
+            />
+            <img src='/images/geo.svg' className='lg:h-24 lg:w-24 ml-auto' />
           </div>
-        )}
+          <img src='/images/geo.svg' className='h-24 w-24 ml-auto lg:block hidden' />
+          <div className='bg-primary h-1' />
+        </div>
       </div>
     </div>
   );

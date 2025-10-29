@@ -103,7 +103,7 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
           maxLength={12}
           {...register('phone', {
             required: 'Обязательное поле',
-            validate: v => (/^\d*$/.test(v ?? '') ? true : 'Только цифры'),
+            validate: v => (/^\+?\d*$/.test(v ?? '') ? true : 'Только цифры и «+» в начале'),
           })}
           value={phone}
           onChange={onPhoneChange}

@@ -35,13 +35,13 @@ const StepRole = ({ onContinue }: Props) => {
             />
             <div className='flex'>
               <div>
-                <img src='/src/assets/images/bag.png' />
+                <img src='/images/bag.png' />
                 <p className='text-25 text-grey-charcoal font-semibold mb-1'>как заказчик</p>
                 <p className='text-14 text-grey-charcoal-40 font-light mb-1'>
                   Контролируйте выполнение заявок в реальном времени
                 </p>
               </div>
-              <img src='/src/assets/images/img-client.png' />
+              <img src='/images/img-client.png' />
             </div>
           </label>
 
@@ -59,13 +59,13 @@ const StepRole = ({ onContinue }: Props) => {
             />
             <div className='flex'>
               <div>
-                <img src='/src/assets/images/truck.png' />
+                <img src='/images/truck.png' />
                 <p className='text-25 text-grey-charcoal font-semibold mb-1'>как перевозчик</p>
                 <p className='text-14 text-grey-charcoal-40 font-light mb-1'>
                   Получайте актуальную информацию о своих перевозках
                 </p>
               </div>
-              <img src='/src/assets/images/img-carrier.png' />
+              <img src='/images/img-carrier.png' />
             </div>
           </label>
         </div>
