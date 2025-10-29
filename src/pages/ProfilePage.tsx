@@ -53,8 +53,6 @@ export default function ProfilePage() {
       user={{ name: 'Иван Иванов', avatarUrl: 'https://i.pravatar.cc/80' }}
       sections={sections}
       activePath='/admin/refs'
-    >
-      данные юзера
-    </ProfileLayout>
+    ></ProfileLayout>
   );
 }
