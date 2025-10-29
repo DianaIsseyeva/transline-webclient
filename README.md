@@ -1,16 +1,58 @@
-# React + Vite
+# 1) Install deps
+npm i
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 2) Run dev server
+npm run dev
 
-Currently, two official plugins are available:
+Dev server: http://localhost:5173
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Node ≥ 18 recommended
 
-## React Compiler
+# Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React + TypeScript
+Vite
+React Router v6
+react-hook-form (forms & validation)
+Tailwind CSS (styling)
+react-international-phone (phone input on registration)
+Lightweight SVG icon system (config → <Icon />)
 
-## Expanding the ESLint configuration
+# User flow implemented
+1) Registration (multi-step wizard)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Step 1 — Phone: phone field with country code preview, validation; consent checkbox
+On submit, phone meta (iso2, dial) + normalized number are saved to localStorage.
+Step is advanced and current step is persisted.
+
+Step 2 — Role: choose customer / carrier
+Choice is saved to localStorage, step advances to OTP.
+
+Step 3 — OTP:
+6-digit code UI with visible blinking cursor, paste support, auto-verify when all digits entered.
+Error state with red borders; on error, focus returns to last cell.
+Resend timer (60s), button enabled after countdown.
+On success → auto-advance to Questionary.
+
+Step 4 — Questionary:
+Reusable <Input /> component.
+Validations:
+  Email — format check
+  Password — min 8, letters + digits
+  ИИН/БИН — exactly 12 digits (numbers only)
+  Submit disabled until required fields valid.
+
+On submit:
+All profile data saved as one object to localStorage under register.profile.
+
+Redirect to /profile.
+
+Registration progress is restored from localStorage after reloads (resumes where you left off).
+
+2) Profile
+
+Layout: fixed Topbar, Sidebar, content area.
+Topbar avatar click opens a right slide-over panel with profile form.
+Profile edit panel:
+Fields: last name, first name, middle name, phone, email.
+
