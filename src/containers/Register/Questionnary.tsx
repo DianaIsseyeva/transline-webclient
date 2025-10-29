@@ -1,5 +1,6 @@
 import Input from '@/components/Input';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
   lastName: string;
@@ -31,6 +32,7 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
       idNumber: '',
     },
   });
+  const navigate = useNavigate();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passRule = (v: string | undefined) =>
@@ -38,8 +40,12 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
   const idRule = (v: string | undefined) => /^\d{12}$/.test(v ?? '') || 'Нужно ровно 12 цифр';
 
   const onSubmit = (data: FormValues) => {
-    console.log('Questionary data:', data);
+    try {
+      localStorage.setItem('register.profile', JSON.stringify(data));
+    } catch {}
+
     onDone?.();
+    navigate('/profile', { replace: true });
   };
 
   return (

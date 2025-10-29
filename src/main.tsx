@@ -1,10 +1,11 @@
+import RegisterPage from '@/pages/RegisterPage';
 import '@/styles/index.css';
-import { StrictMode } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App';
-import RegisterPage from '@/pages/RegisterPage';
 
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const router = createBrowserRouter([
   {
     path: '/',
@@ -12,6 +13,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to='/register' replace /> },
       { path: 'register', element: <RegisterPage /> },
+      {
+        path: 'profile',
+        element: (
+          <Suspense fallback={null}>
+            <ProfilePage />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
