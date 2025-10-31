@@ -57,3 +57,26 @@ Topbar avatar click opens a right slide-over panel with profile form.
 Profile edit panel:
 Fields: last name, first name, middle name, phone, email.
 
+## Implemented functionss
+**Registration: Phone → Role → OTP → Questionnaire → Profile**
+
+**Validations:**
+- Phone (normalization, country-aware checks, length/format, libphonenumber-js)
+- Consent checkbox
+- Email (regex)
+- Password (≥ 8 chars, letters + digits)
+- IIN/BIN — exactly 12 digits
+
+**OTP screen: 6 cells, auto-focus, paste support, auto-verify on full input, resend timer (60s), default code 000000**
+
+**Localization (RU/EN) via i18next + selected language persisted in localStorage**
+
+**Dark/Light theme (context, toggle, persisted in localStorage, respects system preference)**
+
+**Registration progress and profile data persisted in localStorage (restores after reload)**
+
+**Profile: layout with Topbar + Sidebar, right slide-over for editing profile (with validation & save)**
+
+**Responsive layout**
+
+**Routing (React Router v6), lazy pages, redirects**
