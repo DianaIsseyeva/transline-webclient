@@ -1,45 +1,63 @@
 import { Icon } from '@/components/Icons';
 import { NavSection, ProfileLayout } from '@/components/layout/ProfileLayout';
 import { icon } from '@/icons';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
+
   const sections: NavSection[] = [
     {
       id: 'orders',
-      title: 'заявки',
+      title: t('sidebar.order_title'),
       items: [
         {
           id: 'active',
-          label: 'Активные',
+          label: t('sidebar.active'),
           href: '#',
           icon: <Icon icon={icon.activeApp} />,
         },
-        { id: 'arch', label: 'Архивные', href: '#', icon: <Icon icon={icon.archApp} /> },
+        { id: 'arch', label: t('sidebar.arch'), href: '#', icon: <Icon icon={icon.archApp} /> },
       ],
     },
     {
       id: 'partners',
-      title: 'контрагенты',
+      title: t('sidebar.partners_title'),
       items: [
-        { id: 'clients', label: 'Заказчики', href: '#', icon: <Icon icon={icon.client} /> },
-        { id: 'carriers', label: 'Перевозчики', href: '#', icon: <Icon icon={icon.carrier} /> },
+        {
+          id: 'clients',
+          label: t('sidebar.clients'),
+          href: '#',
+          icon: <Icon icon={icon.client} />,
+        },
+        {
+          id: 'carriers',
+          label: t('sidebar.carriers'),
+          href: '#',
+          icon: <Icon icon={icon.carrier} />,
+        },
       ],
     },
     {
       id: 'transport',
-      title: 'автопарк',
+      title: t('sidebar.transport_title'),
       items: [
-        { id: 'transport', label: 'Транспорт', href: '#', icon: <Icon icon={icon.transport} /> },
+        {
+          id: 'transport',
+          label: t('sidebar.transport'),
+          href: '#',
+          icon: <Icon icon={icon.transport} />,
+        },
       ],
     },
     {
       id: 'admin',
-      title: 'управление',
+      title: t('sidebar.admin_title'),
       items: [
-        { id: 'refs', label: 'Справочники', href: '#', icon: <Icon icon={icon.refs} /> },
+        { id: 'refs', label: t('sidebar.refs'), href: '#', icon: <Icon icon={icon.refs} /> },
         {
           id: 'mgrs',
-          label: 'Менеджеры',
+          label: t('sidebar.mgrs'),
           href: '#',
           icon: <Icon icon={icon.mgrs} />,
         },

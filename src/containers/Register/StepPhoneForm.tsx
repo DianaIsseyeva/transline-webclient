@@ -13,23 +13,31 @@ const StepPhoneForm = ({ onDone }: Props) => {
     setValue,
     handleSubmit,
     watch,
+    trigger,
     formState: { errors, isSubmitted, isValid },
   } = useForm<FormValues>({
     mode: 'onChange',
     reValidateMode: 'onChange',
+    shouldUnregister: false,
     defaultValues: { phone: '', consent: false },
   });
   const { t } = useTranslation();
 
   useEffect(() => {
     register('consent', { validate: v => v || t('errors.agreement') });
-  }, [register]);
+  }, [register, t]);
 
+  const [phone, consent] = watch(['phone', 'consent']);
+  useEffect(() => {
+    void trigger(['phone', 'consent']);
+  }, [phone, consent, trigger]);
+
+  const phoneOk = !errors.phone && phone.trim().length > 0;
+  const consentChecked = consent === true;
   const [isSending, setIsSending] = useState(false);
   const [meta, setMeta] = useState<Meta>({ iso2: 'kz', dialCode: '7' });
 
-  const consentChecked = watch('consent') === true;
-  const canSubmit = isValid && consentChecked && !isSending;
+  const canSubmit = consentChecked && !isSending;
 
   const onSubmit = (data: FormValues) => {
     const phoneNational = data.phone.replace(/\D/g, '');
@@ -78,7 +86,7 @@ const StepPhoneForm = ({ onDone }: Props) => {
               name='consent'
               type='checkbox'
               required
-              checked={consentChecked}
+              checked={consent}
               onChange={e =>
                 setValue('consent', e.target.checked, {
                   shouldValidate: true,

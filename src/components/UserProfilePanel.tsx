@@ -94,7 +94,7 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
       </FieldRow>
 
       <FieldRow
-        label={t('profile.middlName')}
+        label={t('profile.middleName')}
         error={errors.middleName?.message}
         htmlFor='middleName'
       >

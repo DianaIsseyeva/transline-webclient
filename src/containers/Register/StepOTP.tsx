@@ -86,7 +86,7 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
     <form onSubmit={onVerify}>
       <div>
         <h3 className='text-25 font-semibold leading-120 text-grey-charcoal mb-5'>
-          {t('regietser.otp')}
+          {t('register.otp')}
         </h3>
         <p
           className={`text-16 text-grey-charcoal-70 leading-120 font-light

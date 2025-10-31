@@ -17,12 +17,10 @@ export const normalizeToNational = (raw: string, dialCode: string, iso2: string)
 };
 
 export const makeCountryValidator =
-  (getIso2: () => string) =>
+  (getIso2: () => string, t: (k: string) => string) =>
   (val: string): true | string => {
-    const { t } = useTranslation();
-
     const nat = (val || '').replace(/\D/g, '');
-    if (!nat) return 'Введите номер';
+    if (!nat) return t('errors.phone');
 
     const iso2 = getIso2().toLowerCase();
     if (FIXED_10[iso2] && nat.length !== 10) return t('errors.phone');

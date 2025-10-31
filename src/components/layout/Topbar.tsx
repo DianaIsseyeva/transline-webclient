@@ -1,4 +1,6 @@
 import React from 'react';
+import LanguageSwitcher from '../LanguageSwitch';
+import ThemeSwitch from '../ThemeSwitch';
 
 type TopbarProps = {
   title: string;
@@ -45,6 +47,8 @@ export const Topbar: React.FC<TopbarProps> = ({ title, user, onBurger, onUserCli
               </button>
             </>
           )}
+          <LanguageSwitcher />
+          <ThemeSwitch />
         </div>
       </div>
     </header>

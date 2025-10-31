@@ -1,4 +1,5 @@
 import { Icon } from '@/components/Icons';
+import LanguageSwitcher from '@/components/LanguageSwitch';
 import { icon } from '@/icons';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +7,7 @@ import StepQuestionary from './Questionnary';
 import StepOTP from './StepOTP';
 import StepPhoneForm from './StepPhoneForm';
 import StepRole from './StepRole';
+import ThemeSwitch from '@/components/ThemeSwitch';
 
 type Step = 'form' | 'role' | 'otp' | 'questionnary' | '';
 const isValidStep = (v: string | null): v is Step =>
@@ -49,6 +51,10 @@ export default function Register() {
       </div>
 
       <div className='h-full lg:pb-[60px] flex flex-col overflow-x-hidden'>
+        <div className='flex items-center gap-5 pt-3 pr-5'>
+          <LanguageSwitcher />
+          <ThemeSwitch />
+        </div>
         <div className='flex-1 lg:pb-16 pb-10'>
           <div className='lg:pt-24 lg:px-28 p-5 pb-0 h-full'>
             {step === 'form' && (

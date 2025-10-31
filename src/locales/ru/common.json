@@ -33,6 +33,19 @@
     "BIN": "БИН*",
     "edit_profile": "Данные изменены"
   },
+  "sidebar": {
+    "order_title":"заявки",
+    "active": "Активные",
+    "arch": "Архивные",
+    "partners_title": "контрагенты",
+    "clients": "Заказчики",
+    "carriers": "Перевозчики",
+    "transport_title": "автопарк",
+    "transport": "транспорт",
+    "admin_title": "управление",
+    "refs": "Справочники",
+    "mgrs": "Менеджеры"
+  },
   "errors": {
     "required": "Обязательное поле",
     "email": "Некорректный email",

@@ -43,7 +43,7 @@ const StepRole = ({ onContinue }: Props) => {
                   {t('register.as_customer')}
                 </p>
                 <p className='text-14 text-grey-charcoal-40 font-light mb-1'>
-                  {t('register.customer')}
+                  {t('register.pros_customer')}
                 </p>
               </div>
               <img src='/images/img-client.png' />

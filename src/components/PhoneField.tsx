@@ -1,5 +1,7 @@
 import { makeCountryValidator, normalizeToNational } from '@/containers/Register/utils/phone';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CountryIso2,
   CountrySelector,
@@ -21,20 +23,11 @@ type PhoneFieldProps = {
   onMetaChange?: (m: { iso2: string; dialCode: string }) => void;
 };
 
-const phoneInputStyles = {
-  inputClassName: `!p-3 !border-none !rounded-none !w-full focus:!ring-0 focus:!border-none
-                   !text-16 !font-light focus:!outline-none focus:!shadow-none`,
-  countrySelectorStyleProps: {
-    className: `!border-none !rounded-none !bg-transparent !cursor-pointer focus:!ring-0
-       focus:!outline-none`,
-    buttonClassName:
-      '!h-full !py-0 !px-3 !flex !items-center !border-none focus:!ring-0 focus:!outline-none',
-    dropdownClassName: '!z-50',
-  },
-};
-
 const PhoneField = ({ register, setValue, isSubmitted, error, onMetaChange }: PhoneFieldProps) => {
   const [national, setNational] = useState('');
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const { inputRef, country, setCountry } = usePhoneInput({
     defaultCountry: 'kz',
@@ -42,13 +35,13 @@ const PhoneField = ({ register, setValue, isSubmitted, error, onMetaChange }: Ph
   });
 
   useEffect(() => {
-    const validateByCountry = makeCountryValidator(() => country.iso2);
+    const validateByCountry = makeCountryValidator(() => country.iso2, t);
     register('phone', { validate: validateByCountry });
-  }, [register, country.iso2]);
+  }, [register, country.iso2, t]);
 
   useEffect(() => {
     setValue('phone', national, { shouldValidate: isSubmitted });
-  }, [setValue, national, isSubmitted, country.dialCode]);
+  }, [setValue, national, country.dialCode, isSubmitted]);
 
   useEffect(() => {
     onMetaChange?.({ iso2: country.iso2, dialCode: country.dialCode });
@@ -68,37 +61,65 @@ const PhoneField = ({ register, setValue, isSubmitted, error, onMetaChange }: Ph
     setValue('phone', n, { shouldValidate: isSubmitted, shouldDirty: true });
   };
 
+  const wrapClass = `
+    mt-8 flex p-2 rounded-xl transition duration-150
+    ${isDark ? 'bg-[#1b1f22] border border-gray-700' : 'bg-white border border-gray-300'}
+    focus-within:ring-2 focus-within:ring-blue-500
+    ${isSubmitted && error ? 'mb-0' : 'mb-8'}
+  `;
+
+  const selectorClass = `
+    !border-none !rounded-lg !cursor-pointer focus:!ring-0 focus:!outline-none
+    ${isDark ? '!bg-[#1b1f22]' : '!bg-transparent'}
+  `;
+
+  const selectorBtnClass = `
+    !h-full !py-0 !px-3 !flex !items-center !border-none focus:!ring-0 focus:!outline-none
+    ${isDark ? '!bg-[#1b1f22] !text-gray-200' : '!bg-transparent !text-gray-800'}
+  `;
+
+  const dialClass = `
+    !px-2 !border !rounded-lg !text-16 !font-light
+    ${
+      isDark ? '!bg-[#1b1f22] !border-none !text-gray-200' : '!bg-white !border-none !text-gray-800'
+    }
+  `;
+
+  const inputClass = `
+    !p-3 !border-none !rounded-none !w-full
+    focus:!ring-0 focus:!border-none focus:!outline-none focus:!shadow-none
+    !text-16 !font-light
+    ${
+      isDark
+        ? '!bg-[#1b1f22] !text-gray-100 placeholder:!text-gray-500'
+        : '!bg-white !text-gray-900 placeholder:!text-gray-400'
+    }
+  `;
+
   return (
     <>
-      <div
-        className={`mt-8 flex p-2 border border-gray-300 rounded-xl
-                    focus-within:ring-2 focus-within:ring-blue-500 transition duration-150 ${
-                      isSubmitted && error ? 'mb-0' : 'mb-8'
-                    }`}
-      >
+      <div className={wrapClass}>
         <CountrySelector
           selectedCountry={country.iso2 as CountryIso2}
           onSelect={(c: ParsedCountry) => {
             setCountry(c.iso2 as CountryIso2);
             setNational('');
-            setValue('phone', '', { shouldValidate: isSubmitted, shouldDirty: true });
+            setValue('phone', '', { shouldValidate: true, shouldDirty: true });
             inputRef.current?.focus();
           }}
-          className={phoneInputStyles.countrySelectorStyleProps.className}
-          buttonClassName={phoneInputStyles.countrySelectorStyleProps.buttonClassName}
+          className={selectorClass}
+          buttonClassName={selectorBtnClass}
         />
-        <DialCodePreview
-          dialCode={country.dialCode}
-          prefix='+'
-          className='!px-2 !border-none !text-16 !font-light'
-        />
+
+        <DialCodePreview dialCode={country.dialCode} prefix='+' className={dialClass} />
+
         <input
           ref={inputRef}
           value={national}
           onChange={onChange}
           onPaste={onPaste}
           placeholder='(000) 000-00-00'
-          className={phoneInputStyles.inputClassName}
+          className={inputClass}
           inputMode='tel'
           autoComplete='tel-national'
           pattern='\d*'

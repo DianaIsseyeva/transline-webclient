@@ -43,9 +43,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+:root.dark {
+  --color-grey-light: #494a4b;
+  --color-grey-charcoal: #e6e6e6;
+  --color-grey-charcoal-70: #cfcfcf;
+  --color-grey-charcoal-40: #9aa0a6;
+}
 
 body {
   margin: 0;
+  background: var(--color-grey-light);
 }
 
 button {

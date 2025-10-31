@@ -33,6 +33,19 @@
     "BIN": "BIN*",
     "edit_profile": "Profile has been changed"
   },
+  "sidebar": {
+    "order_ttitle":"orders",
+    "active": "Active",
+    "arch": "Arch",
+    "partners_title": "partners",
+    "clients": "Clients",
+    "carriers": "Carriers",
+    "transport_title": "vehicle fleet",
+    "transport": "transport",
+    "admin_title": "administration",
+    "refs": "Reference books",
+    "mgrs": "Managers"
+  },
   "errors": {
     "required": "Required",
     "email": "Invalid email",
