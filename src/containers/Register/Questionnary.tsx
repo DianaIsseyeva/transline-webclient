@@ -1,7 +1,7 @@
 import Input from '@/components/Input';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-
 type FormValues = {
   lastName: string;
   firstName: string;
@@ -12,9 +12,10 @@ type FormValues = {
 };
 
 const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
+  const { t } = useTranslation();
   const role =
     (typeof window !== 'undefined' ? localStorage.getItem('register.role') : null) || 'customer';
-  const rolePlaceholder = role === 'carrier' ? 'БИН*' : 'ИИН*';
+  const rolePlaceholder = role === 'carrier' ? t('profile.BIN') : t('profile.IIN');
 
   const {
     register,
@@ -36,8 +37,8 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passRule = (v: string | undefined) =>
-    /(?=.*[A-Za-z])(?=.*\d).{8,}/.test(v ?? '') || 'Минимум 8 символов, буквы и цифры';
-  const idRule = (v: string | undefined) => /^\d{12}$/.test(v ?? '') || 'Нужно ровно 12 цифр';
+    /(?=.*[A-Za-z])(?=.*\d).{8,}/.test(v ?? '') || t('errors.password_weak');
+  const idRule = (v: string | undefined) => /^\d{12}$/.test(v ?? '') || t('errors.iin_bin_len');
 
   const onSubmit = (data: FormValues) => {
     try {
@@ -54,8 +55,8 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         name='lastName'
         register={register}
         setValue={setValue}
-        rules={{ required: 'Обязательное поле' }}
-        placeholder='Фамилия*'
+        rules={{ required: t('errors.required') }}
+        placeholder={t('profile.lastName')}
         error={errors.lastName?.message}
       />
 
@@ -63,8 +64,8 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         name='firstName'
         register={register}
         setValue={setValue}
-        rules={{ required: 'Обязательное поле' }}
-        placeholder='Имя*'
+        rules={{ required: t('errors.required') }}
+        placeholder={t('profile.lastName')}
         error={errors.firstName?.message}
       />
 
@@ -72,7 +73,7 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         name='middleName'
         register={register}
         setValue={setValue}
-        placeholder='Отчество'
+        placeholder={t('profile.middleName')}
         error={errors.middleName?.message}
       />
 
@@ -81,11 +82,11 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         register={register}
         setValue={setValue}
         rules={{
-          required: 'Обязательное поле',
-          pattern: { value: emailRegex, message: 'Некорректный email' },
+          required: t('errors.required'),
+          pattern: { value: emailRegex, message: t('errors.email') },
         }}
         type='email'
-        placeholder='Email*'
+        placeholder={t('profile.email')}
         error={errors.email?.message}
       />
 
@@ -94,11 +95,11 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         register={register}
         setValue={setValue}
         rules={{
-          required: 'Обязательное поле',
+          required: t('errors.required'),
           validate: passRule,
         }}
         type='password'
-        placeholder='Пароль*'
+        placeholder={t('profile.password')}
         error={errors.password?.message}
       />
 
@@ -107,7 +108,7 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
         register={register}
         setValue={setValue}
         rules={{
-          required: 'Обязательное поле',
+          required: t('errors.required'),
           validate: idRule,
         }}
         placeholder={rolePlaceholder}
@@ -125,7 +126,7 @@ const StepQuestionary: React.FC<{ onDone?: () => void }> = ({ onDone }) => {
                     leading-120 font-400 w-full mt-6 py-3 rounded-xl
                     disabled:cursor-not-allowed`}
       >
-        ВОЙТИ
+        {t('actions.login')}
       </button>
     </form>
   );

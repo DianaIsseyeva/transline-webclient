@@ -1,6 +1,7 @@
 import PhoneField from '@/components/PhoneField';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 type FormValues = { phone: string; consent: boolean };
 type Props = { onDone: (payload: { phoneNational: string }) => void };
@@ -18,9 +19,10 @@ const StepPhoneForm = ({ onDone }: Props) => {
     reValidateMode: 'onChange',
     defaultValues: { phone: '', consent: false },
   });
+  const { t } = useTranslation();
 
   useEffect(() => {
-    register('consent', { validate: v => v || 'Нужно согласие' });
+    register('consent', { validate: v => v || t('errors.agreement') });
   }, [register]);
 
   const [isSending, setIsSending] = useState(false);
@@ -47,10 +49,11 @@ const StepPhoneForm = ({ onDone }: Props) => {
   return (
     <div className='flex flex-col lg:h-full justify-between'>
       <div>
-        <h3 className='text-32 text-grey-charcoal leading-120 font-semibold  mb-2'>Регистрация</h3>
+        <h3 className='text-32 text-grey-charcoal leading-120 font-semibold  mb-2'>
+          {t('register.registration')}
+        </h3>
         <p className='text-16 text-grey-charcoal-70 leading-120 font-light'>
-          Для входа в личный кабинет введите свой номер телефона, на него будет отправлено SMS с
-          проверочным кодом
+          {t('register.enterPhoneHelp')}
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -85,9 +88,9 @@ const StepPhoneForm = ({ onDone }: Props) => {
               className='h-[18px] w-[18px] mt-0.5'
             />
             <span className='text-14 text-grey-charcoal-70 leading-120 font-light mt-2'>
-              Согласен с{' '}
+              {t('register.consent_title')}{' '}
               <a href='#' className='underline'>
-                политикой конфиденциальности
+                {t('register.consent_link')}
               </a>
             </span>
           </label>
@@ -103,7 +106,7 @@ const StepPhoneForm = ({ onDone }: Props) => {
             className={`disabled:bg-disabled bg-primary text-white text-16
                         leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8`}
           >
-            {isSending ? 'Отправляем…' : 'войти'}
+            {isSending ? t('actions.sending') : t('actions.login')}
           </button>
         </form>
       </div>

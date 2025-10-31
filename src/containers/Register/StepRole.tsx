@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Props = { onContinue: (role: 'customer' | 'carrier') => void };
 
 const StepRole = ({ onContinue }: Props) => {
+  const { t } = useTranslation();
+
   const [role, setRole] = useState<'customer' | 'carrier' | null>(null);
   const chooseRole = (value: 'customer' | 'carrier') => {
     setRole(value);
@@ -14,10 +17,10 @@ const StepRole = ({ onContinue }: Props) => {
     <div className='flex flex-col lg:h-full justify-between'>
       <>
         <h3 className='lg:text-32 text-25 text-grey-charcoal leading-120 font-semibold mb-2'>
-          Регистрация
+          {t('register.registration')}
         </h3>
         <p className='text-16 text-grey-charcoal-70 leading-120 font-light'>
-          Выберите, как вы хотите использовать приложение
+          {t('register.choose_role')}
         </p>
 
         <div className='flex flex-col items-center-safe gap-4 mt-8'>
@@ -36,9 +39,11 @@ const StepRole = ({ onContinue }: Props) => {
             <div className='flex'>
               <div>
                 <img src='/images/bag.png' />
-                <p className='text-25 text-grey-charcoal font-semibold mb-1'>как заказчик</p>
+                <p className='text-25 text-grey-charcoal font-semibold mb-1'>
+                  {t('register.as_customer')}
+                </p>
                 <p className='text-14 text-grey-charcoal-40 font-light mb-1'>
-                  Контролируйте выполнение заявок в реальном времени
+                  {t('register.customer')}
                 </p>
               </div>
               <img src='/images/img-client.png' />
@@ -60,9 +65,11 @@ const StepRole = ({ onContinue }: Props) => {
             <div className='flex'>
               <div>
                 <img src='/images/truck.png' />
-                <p className='text-25 text-grey-charcoal font-semibold mb-1'>как перевозчик</p>
+                <p className='text-25 text-grey-charcoal font-semibold mb-1'>
+                  {t('register.as_carrier')}
+                </p>
                 <p className='text-14 text-grey-charcoal-40 font-light mb-1'>
-                  Получайте актуальную информацию о своих перевозках
+                  {t('register.pros_carrier')}
                 </p>
               </div>
               <img src='/images/img-carrier.png' />
@@ -78,7 +85,7 @@ const StepRole = ({ onContinue }: Props) => {
           className={`disabled:bg-disabled bg-primary text-white text-16
                       leading-120 font-ligh w-full disabled:cursor-not-allowed mt-8 py-2.5 px-8`}
         >
-          Продолжить
+          {t('actions.continue')}
         </button>
       </>
     </div>

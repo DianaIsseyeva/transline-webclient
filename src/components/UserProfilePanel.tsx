@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import FieldRow from './FieldRow';
 
 type ProfileForm = {
@@ -23,6 +24,7 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
   } = useForm<ProfileForm>({ mode: 'onChange' });
 
   const phone = watch('phone') ?? '';
+  const { t } = useTranslation();
 
   useEffect(() => {
     try {
@@ -54,7 +56,7 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
       localStorage.setItem('register.profile', JSON.stringify({ ...prev, ...data }));
       onSaved?.();
     } catch {}
-    alert('Данные изменены');
+    alert(t('profile.edit_profile'));
   };
 
   const canSave = isDirty;
@@ -68,33 +70,41 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
           className='px-4 py-2 border border-primary text-primary
                     rounded-md text-12 font-normal disabled:opacity-50'
         >
-          сохранить
+          {t('actions.save')}
         </button>
       </div>
 
-      <FieldRow label='Фамилия' error={errors.lastName?.message} htmlFor='lastName'>
+      <FieldRow label={t('profile.lastName')} error={errors.lastName?.message} htmlFor='lastName'>
         <input
           className='w-full text-14 font-light rounded-lg p-2 outline-none
                     focus:border-primary focus:ring-1 focus:ring-primary'
-          {...register('lastName', { required: 'Обязательное поле' })}
+          {...register('lastName', { required: t('errors.required') })}
         />
       </FieldRow>
 
-      <FieldRow label='Имя' error={errors.firstName?.message} htmlFor='firstName'>
+      <FieldRow
+        label={t('profile.firstName')}
+        error={errors.firstName?.message}
+        htmlFor='firstName'
+      >
         <input
           className='w-full text-14 font-light rounded-lg p-2 outline-none focus:border-primary focus:ring-1 focus:ring-primary'
-          {...register('firstName', { required: 'Обязательное поле' })}
+          {...register('firstName', { required: t('errors.required') })}
         />
       </FieldRow>
 
-      <FieldRow label='Отчество' error={errors.middleName?.message} htmlFor='middleName'>
+      <FieldRow
+        label={t('profile.middlName')}
+        error={errors.middleName?.message}
+        htmlFor='middleName'
+      >
         <input
           className='w-full text-14 font-light rounded-lg p-2 outline-none focus:border-primary focus:ring-1 focus:ring-primary'
           {...register('middleName')}
         />
       </FieldRow>
 
-      <FieldRow label='Номер телефона' error={errors.phone?.message} htmlFor='phone'>
+      <FieldRow label={t('profile.phone')} error={errors.phone?.message} htmlFor='phone'>
         <input
           className='w-full text-14 font-light rounded-lg p-2 outline-none
                    focus:border-primary focus:ring-1 focus:ring-primary'
@@ -102,8 +112,8 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
           autoComplete='tel'
           maxLength={12}
           {...register('phone', {
-            required: 'Обязательное поле',
-            validate: v => (/^\+?\d*$/.test(v ?? '') ? true : 'Только цифры и «+» в начале'),
+            required: t('errors.required'),
+            validate: v => (/^\+?\d*$/.test(v ?? '') ? true : t('errors.validate_phone')),
           })}
           value={phone}
           onChange={onPhoneChange}
@@ -116,8 +126,8 @@ const UserProfilePanel: FC<Props> = ({ onSaved }) => {
                    focus:border-primary focus:ring-1 focus:ring-primary'
           type='email'
           {...register('email', {
-            required: 'Обязательное поле',
-            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Некорректный email' },
+            required: t('errors.required'),
+            pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t('errors.email') },
           })}
         />
       </FieldRow>

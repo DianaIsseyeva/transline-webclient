@@ -1,6 +1,7 @@
 import { Icon } from '@/components/Icons';
 import { icon } from '@/icons';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import StepQuestionary from './Questionnary';
 import StepOTP from './StepOTP';
 import StepPhoneForm from './StepPhoneForm';
@@ -11,6 +12,7 @@ const isValidStep = (v: string | null): v is Step =>
   v === 'form' || v === 'role' || v === 'otp' || v === 'questionnary';
 
 export default function Register() {
+  const { t } = useTranslation();
   const [step, setStep] = useState<Step>(() => {
     try {
       if (typeof window === 'undefined') return 'form';
@@ -37,7 +39,7 @@ export default function Register() {
             <div>
               <img src='/images/logo.svg' className='mb-5' />
               <p className='text-white font-semibold lg:text-50 md:text-32 text-25 leading-110'>
-                Добро пожаловать в личный кабинет для бизнеса!
+                {t('register.title')}
               </p>
             </div>
             <Icon icon={icon.car} strokeColor='#ffffff' className='hidden lg:block' />

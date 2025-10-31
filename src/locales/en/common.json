@@ -1,0 +1,47 @@
+{
+  "brand": "TRANSLINE",
+  "actions": {
+    "save": "save",
+    "continue": "Continue",
+    "login": "Log in",
+    "send_again": "send again",
+    "sending": "sending"
+  },
+  "register": {
+    "title": "Welcome to the business account!",
+    "enterPhoneHelp": "Enter your phone number to access your account — an SMS with a verification code will be sent to it.",
+    "otp": "Enter the SMS code.",
+    "codeSentToNumber": "A verification code was sent to",
+    "send_again": "resend in",
+    "consent_title": "I agree with",
+    "consent_link": "the privacy policy",
+    "as_customer": "as a customer",
+    "as_carrier": "as a carrier",
+    "pros_customer": "Monitor request execution in real time",
+    "pros_carrier": "Get up-to-date information about your shipments",
+    "registration": "Registration",
+    "choose_role": "Choose how you want to use the app"
+  },
+  "profile": {
+    "lastName": "Last name",
+    "firstName": "First name",
+    "middleName": "Middle name",
+    "phone": "Phone number",
+    "email": "Email",
+    "password": "Password*",
+    "IIN": "IIN*",
+    "BIN": "BIN*",
+    "edit_profile": "Profile has been changed"
+  },
+  "errors": {
+    "required": "Required",
+    "email": "Invalid email",
+    "phone": "Invalid phone number",
+    "digits_only": "Digits only",
+    "iin_bin_len": "Must be exactly 12 digits",
+    "password_weak": "Min 8 characters, letters & digits",
+    "otp": "Incorrect code",
+    "agreement": "Consent is required",
+    "validate_phone": "Only digits and '+' allowed at the start"
+  }
+}

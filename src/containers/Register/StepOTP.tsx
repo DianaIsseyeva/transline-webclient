@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import 'react-international-phone/style.css';
 
 type StepOTPProps = { onSuccess?: () => void };
@@ -7,6 +8,7 @@ const OTP_LEN = 6;
 const OTP_EXPECTED = '000000';
 
 const formatPhone = (iso2: string, dial: string, national: string) => {
+  const { t } = useTranslation();
   const n = (national || '').replace(/\D/g, '');
   if ((iso2 === 'kz' || iso2 === 'ru') && n.length === 10) {
     return `+${dial}(${n.slice(0, 3)}) ${n.slice(3, 6)}-${n.slice(6, 8)}-${n.slice(8, 10)}`;
@@ -25,6 +27,8 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
   const [counter, setCounter] = useState(60);
   const [isFocused, setIsFocused] = useState(true);
   const [blinkOn, setBlinkOn] = useState(true);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     try {
@@ -82,17 +86,17 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
     <form onSubmit={onVerify}>
       <div>
         <h3 className='text-25 font-semibold leading-120 text-grey-charcoal mb-5'>
-          Введите код из SMS
+          {t('regietser.otp')}
         </h3>
         <p
           className={`text-16 text-grey-charcoal-70 leading-120 font-light
                        border-b border-dashed border-b-grey mb-5 pb-5`}
         >
-          Проверочный код был отправлен на номер: <br />{' '}
+          {t('register.codeSentToNumber')}: <br />{' '}
           <span className='pt-2 block'>{formatPhone(iso2, dial, phoneNational)}</span>
         </p>
 
-        {isWrong && <p style={{ color: '#E53935', marginBottom: 8 }}>Неправильный код</p>}
+        {isWrong && <p style={{ color: '#E53935', marginBottom: 8 }}>{t('errors.otp')}</p>}
 
         <div
           className='flex justify-content-between w-full max-w-[300px] mx-auto'
@@ -157,7 +161,7 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
               className={`border rounded-lg border-grey text-grey-charcoal-40
                            text-16 leading-120 font-normal w-full mt-8 p-4`}
             >
-              отправить повторно через 00:{String(counter).padStart(2, '0')}
+              {t('register.send_again')} 00:{String(counter).padStart(2, '0')}
             </p>
           ) : (
             <button
@@ -166,7 +170,7 @@ const StepOTP: FC<StepOTPProps> = ({ onSuccess }) => {
               className={`border border-grey text-grey-charcoal-40 text-16
                           leading-120 font-normal w-full mt-8 p-4`}
             >
-              отправить повторно
+              {t('actions.send_again')}
             </button>
           )}
         </div>
